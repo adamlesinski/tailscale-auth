@@ -1,0 +1,15 @@
+{
+    order tailscale_auth after basicauth
+}
+
+:80 {
+    tailscale_auth
+
+    header {
+        X-TS-Email {http.auth.user.tailscale_user}
+        X-TS-Name {http.auth.user.tailscale_name}
+        defer
+    }
+    respond "Success!"
+}
+
